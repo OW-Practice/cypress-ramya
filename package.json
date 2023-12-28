@@ -1,0 +1,20 @@
+{
+  "name": "playwrighturbuddytypescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "faker": "^6.6.6"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^8.3.1",
+    "@playwright/test": "^1.40.1",
+    "@types/node": "^20.10.5",
+    "playwright": "^1.40.1",
+    "typescript": "^5.3.3",
+    "winston": "^3.11.0"
+  }
+}
