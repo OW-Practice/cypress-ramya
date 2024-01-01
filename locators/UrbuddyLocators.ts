@@ -23,10 +23,10 @@ const urbuddyLocators = {
     profile: "css=profile-icon-container",
     notification: "css=.notification-container",
     dashboardText: "Dashboard",
-    upcomingBirthdayText: "upcoming Birthday",
-    upcomingEventText: "upcoming Events",
-    upcomingHolidayText: "upcoming Holidays",
-    urbuddiCompanyLogo: "companylogo",
+    upcomingBirthday: "css=.birthday-container",
+    upcomingEvent: "upcoming Events",
+    upcomingHoliday: "upcoming Holidays",
+    urbuddiCompanyLogo: "logo",
     employeesMenu: "[href*='employees']",
     addEmployeeLink: "Add Employee"
 };

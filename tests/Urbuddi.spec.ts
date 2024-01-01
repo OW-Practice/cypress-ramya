@@ -1,11 +1,12 @@
 
-import { test } from '@playwright/test';
-import UrbuddiLogin from '../pages/UrbuddiLoginPage';
-import UrbuddyEmployeeDetails from '../pages/UrbuddiAddEmployeePage'
-import { URL, pageTitle, reportingToEmail } from '../testdata.json'
+import test from '../utilities/baseTest';
+import { pageTitle, reportingToEmail } from '../testdata.json';
 import { adminUsername, adminPassword } from '../credentials.json'
-import { faker } from '@faker-js/faker'
-const logger = require('../utilities/logger.ts')
+import { faker } from '@faker-js/faker';
+import { getBaseUrl } from '../utilities/config';
+import CustomReporterConfig from '../utilities/logger';
+
+test.use({ reporter: CustomReporterConfig });
 
 let firstName = faker.person.firstName();
 let lastName = faker.person.lastName();
@@ -26,33 +27,30 @@ let location = faker.location.city();
 
 test.describe('urbuddy test cases', () => {
 
-    test('login test case', async ({ page }) => {
-        const uLogin = new UrbuddiLogin(page);
-        try {
-            await uLogin.launchURL(URL, pageTitle);
-            await uLogin.inputCredentials(adminUsername, adminPassword);
-            await uLogin.clickOnLoginButton();
+    test.beforeEach(async ({ urbuddiLogin }) => {
+        test.step('launch URL', async () => {
+            await urbuddiLogin.launchURL(getBaseUrl(), pageTitle);
+        })
 
-            logger.info('Login test case passed');
-        } catch (error) {
-            logger.error('Login test case failed', { error });
-            throw error;
-        }
+        test.step('input credentials into respective fields', async () => {
+            await urbuddiLogin.inputCredentials(adminUsername, adminPassword);
+        })
+
+        test.step('input credentials into respective fields', async () => {
+            await urbuddiLogin.clickOnLoginButton();
+        })
+    })
+
+    test('verify login', async ({ urbuddiLogin }) => {
+        await urbuddiLogin.verifyIsLoginSuccessful()
     });
 
-    test('add employee test case', async ({ page }) => {
-        const uLogin = new UrbuddiLogin(page);
-        const uEmployee = new UrbuddyEmployeeDetails(page)
-
-        await uLogin.launchURL(URL, pageTitle);
-        await uLogin.inputCredentials(adminUsername, adminPassword);
-        await uLogin.clickOnLoginButton();
-
-        await uEmployee.goToEmployeesMenu();
-        await uEmployee.clickOnAddEmployee();
-        await uEmployee.inputIntoAddEmployee(firstName, lastName, employeeID, email, role, password, dob, joiningDate,
+    test('add employee test case', async ({ urbuddiEmployee }) => {
+        await urbuddiEmployee.goToEmployeesMenu();
+        await urbuddiEmployee.clickOnAddEmployee();
+        await urbuddiEmployee.inputIntoAddEmployee(firstName, lastName, employeeID, email, role, password, dob, joiningDate,
             qualification, department, gender, mobileNumber, bloodGroup,
             designation, salary, location, reportingToEmail);
-        await uEmployee.clickOnAddButton();
+        await urbuddiEmployee.clickOnAddButton();
     })
 });
