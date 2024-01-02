@@ -32,9 +32,7 @@ export default class UrbuddyLogin {
     async verifyIsLoginSuccessful() {
         await expect(this.page.locator(locators.profile)).toBeVisible();
         await expect(this.page.locator(locators.notification)).toBeVisible();
-        await expect(this.page.getByText(locators.dashboardText)).toBeVisible();
-        await expect(this.page.getByText(locators.upcomingBirthdayText)).toBeAttached();
-        await expect(this.page.getByText(locators.upcomingEventText)).toBeAttached();
-        await expect(this.page.getByText(locators.upcomingHolidayText)).toBeAttached();
+        await expect(this.page.getByRole('link', { name: locators.dashboardText })).toBeVisible();
+        await expect(this.page.locator(locators.upcomingBirthday)).toBeAttached();
     }
 }

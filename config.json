@@ -1,0 +1,11 @@
+{
+    "uat": {
+        "baseUrl": "https://uat.urbuddi.com/login/"
+    },
+    "stg": {
+        "baseUrl": "https://stg.urbuddi.com/login"
+    },
+    "dev": {
+        "baseUrl": "https://dev.urbuddi.com/login"
+    }
+}
